@@ -10,7 +10,7 @@ const PageLayout = () => {
   const location = useLocation();
   const navKey = pageMenuItems.find(item => item.path === location.pathname)?.key || '1';
   const { state, toggle } = useIsOpen()
-
+  console.log('1', state.modalOpen)
   return (
     <>
       <Layout>

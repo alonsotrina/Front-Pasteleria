@@ -13,6 +13,8 @@ function useIsOpen() {
     }))
   };
   
+
+  console.log('state', state) 
   return { state, toggle };
 }
 
