@@ -5,6 +5,8 @@ export { default as Register } from './Register/Register';
 export { default as Us } from './Us/Us';
 export { default as Profile } from './Profile/Profile';
 export { default as NotFound } from './NotFound/NotFound';
+// export { default as Products } from './Products/Products';
+// export { default as Favorite } from './Favorite/Favorite';
 // Pages Admin
 // export { default as Category } from './Admin/Category';
 // export { default as Portions } from './Admin/Portions';
