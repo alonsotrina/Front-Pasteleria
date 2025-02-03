@@ -25,16 +25,11 @@ const MainRoutes = () => {
                     path="/profile"
                     element={
                         <AuthGuard
-                            redirectTo="/register"
+                            redirectTo="/login"
                             isAllow={session?.token}
                         />
                     }
-                >
-                    <Route
-                        index
-                        element={<Profile />}
-                    />
-                </Route>
+                />
             </Route>
 
             {/* Ruta Admin */}
