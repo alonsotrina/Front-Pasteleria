@@ -12,11 +12,15 @@ const MainRoutes = () => {
     
     return (
         <Routes>
-            <Route path="/" element={<PageLayout />}>
+            {/* <Route path="/" element={<HomeLayout />}>
                 <Route index element={<Home />} />
-            </Route>
+            </Route> */}
+
+            <Route path="/" index element={<Home />} />
+           
 
             <Route element={<PageLayout />}>
+                {/* <Route path="/products" element={<Products />} /> */}
                 <Route path="/register" element={<Register />} />
                 <Route path="/basket" element={<Basket />} />
                 <Route path="/us" element={<Us />} />
@@ -35,6 +39,21 @@ const MainRoutes = () => {
                         element={<Profile />}
                     />
                 </Route>
+
+                {/* <Route
+                    path="/favorite"
+                    element={
+                        <AuthGuard
+                            redirectTo="/"
+                            isAllow={session?.token}
+                        />
+                    }
+                >
+                    <Route
+                        index
+                        element={<Favorite />}
+                    />
+                </Route> */}
             </Route>
 
             {/* Ruta Admin */}

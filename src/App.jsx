@@ -4,7 +4,7 @@ import MainRoutes from './router/MainRoutes';
 const App = () => {
   return (
 
-    <div className="min-h-screen bg-red-500">
+    <div>
       <MainRoutes />
     </div>
   )
