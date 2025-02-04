@@ -29,31 +29,11 @@ const MainRoutes = () => {
                     path="/profile"
                     element={
                         <AuthGuard
-                            redirectTo="/register"
+                            redirectTo="/login"
                             isAllow={session?.token}
                         />
                     }
-                >
-                    <Route
-                        index
-                        element={<Profile />}
-                    />
-                </Route>
-
-                {/* <Route
-                    path="/favorite"
-                    element={
-                        <AuthGuard
-                            redirectTo="/"
-                            isAllow={session?.token}
-                        />
-                    }
-                >
-                    <Route
-                        index
-                        element={<Favorite />}
-                    />
-                </Route> */}
+                />
             </Route>
 
             {/* Ruta Admin */}
