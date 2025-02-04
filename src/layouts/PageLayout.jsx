@@ -2,12 +2,11 @@ import React from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Layout, Menu } from 'antd';
 import pageMenuItems from './pageMenuItems';
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 import { useIsOpen } from '../hooks/Index'
-import { LoginModal } from '../components/index';
+import { LoginModal, Footer } from '../components/index';
 import { ShoppingOutlined, HeartOutlined } from '@ant-design/icons';
 import { useAuth } from '../hooks/useAuth';
-
 
 
 
@@ -125,20 +124,13 @@ const PageLayout = () => {
           </div>
         </Header>
 
-        <Content style={{ padding: '0 48px' }}>
-          <div
-            style={{
-              minHeight: '90vh',
-              padding: 24,
-            }}
-          >
+        <Content className='py-8 w-[95%] mx-auto'>
+          <div style={{ minHeight: '90vh'}}>
             <Outlet />
           </div>
         </Content>
 
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
+        <Footer />
       </Layout>
 
       <LoginModal
