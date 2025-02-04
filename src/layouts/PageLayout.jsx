@@ -3,66 +3,67 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Layout, Menu } from 'antd';
 import pageMenuItems from './pageMenuItems';
 const { Header, Content } = Layout;
-import { useIsOpen } from '../hooks/Index'
+// import { useIsOpen } from '../hooks/Index'
 import { LoginModal, Footer } from '../components/index';
 import { ShoppingOutlined, HeartOutlined } from '@ant-design/icons';
 import { useAuth } from '../hooks/useAuth';
-
-
-
+import { useBasket } from '../hooks/useBasket';
 
 const PageLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { session } = useAuth()
   const navKey = pageMenuItems.find(item => item.path === location.pathname)?.key || '1';
-  const { state, toggle } = useIsOpen()
+  // const { state, toggle } = useIsOpen()
+  const { state, open } = useBasket()
 
-  const items = [
-    {
-      key: '1',
-      label: `Bienvenido`,
-      disabled: true,
-    },
-    {
-      type: 'divider',
-    },
-    !session?.token && {
-      key: '2',
-      label: 'Iniciar sesión',
-      path: '',
-      onClick: () => toggle('modalOpen'),
-      extra: ' ',
-    },
-    !session?.token && {
-      key: '3',
-      label: 'Registrate',
-      path: '/register',
-      onClick: () => navigate('/register'),
-      extra: '',
-    },
-    session?.token && {
-      key: '4',
-      label: 'Mis compras',
-      path: '/orders',
-      onClick: () => navigate('/register'),
-      extra: '',
-    },
-    session?.token && {
-      key: '5',
-      label: 'Perfil',
-      path: '/profile',
-      onClick: () => navigate('/profile'),
-      extra: '',
-    },
-    session?.token && {
-      key: '6',
-      label: 'Cerrar sesión',
-      path: '',
-      onClick: () => navigate('/profile'),
-      extra: '',
-    },
-  ];
+  console.log('layout', state)
+
+  // const items = [
+  //   {
+  //     key: '1',
+  //     label: `Bienvenido`,
+  //     disabled: true,
+  //   },
+  //   {
+  //     type: 'divider',
+  //   },
+  //   !session?.token && {
+  //     key: '2',
+  //     label: 'Iniciar sesión',
+  //     path: '',
+  //     onClick: () => toggle('modalOpen'),
+  //     extra: ' ',
+  //   },
+  //   !session?.token && {
+  //     key: '3',
+  //     label: 'Registrate',
+  //     path: '/register',
+  //     onClick: () => navigate('/register'),
+  //     extra: '',
+  //   },
+  //   session?.token && {
+  //     key: '4',
+  //     label: 'Mis compras',
+  //     path: '/orders',
+  //     onClick: () => navigate('/register'),
+  //     extra: '',
+  //   },
+  //   session?.token && {
+  //     key: '5',
+  //     label: 'Perfil',
+  //     path: '/profile',
+  //     onClick: () => navigate('/profile'),
+  //     extra: '',
+  //   },
+  //   session?.token && {
+  //     key: '6',
+  //     label: 'Cerrar sesión',
+  //     path: '',
+  //     onClick: () => navigate('/profile'),
+  //     extra: '',
+  //   },
+  // ];
 
 
   return (
@@ -116,11 +117,14 @@ const PageLayout = () => {
               </>
             }
 
-            <Link to="/basket"
+            {/* <Link
               className='!text-stone-800 text-lg'
+              onC
             >
-              <ShoppingOutlined />
-            </Link>
+              <ShoppingOutlined onClick={() => toggleBasket('basketOpen')} />
+            </Link> */}
+
+            <ShoppingOutlined onClick={() => open('basketOpen')} /> 
           </div>
         </Header>
 
@@ -133,10 +137,10 @@ const PageLayout = () => {
         <Footer />
       </Layout>
 
-      <LoginModal
+      {/* <LoginModal
         isOpen={state.modalOpen}
-        toggle={() => toggle('modalOpen')}
-      />
+        toggle={() => modal('modalOpen')}
+      /> */}
     </>
 
   );
