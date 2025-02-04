@@ -16,7 +16,7 @@ const Home = () => {
       <HeaderHome
         title='Tarta de Chocolate Supremo'
         desc='Bizcocho esponjoso de cacao, relleno con ganache de chocolate y avellanas caramelizadas. Irresistible y perfecta para cualquier ocasión.'
-        href='/baske'
+        href={`/product-detail/10`}
         src={`url(${headerImage})`}
       />
 
@@ -45,7 +45,7 @@ const Home = () => {
               color="default"
               size="large"
               name="Ver otras categorias"
-              href='/basket'
+              href={`/product-detail/10`}
               variant='link'
             />
           </div>
@@ -79,7 +79,7 @@ const Home = () => {
                 key={item.id}
                 name={item.name}
                 src={item.src}
-                href={item.href}
+                href={`/product-detail/${item.id}`}
                 category={item.category}
                 price={item.price}
               />

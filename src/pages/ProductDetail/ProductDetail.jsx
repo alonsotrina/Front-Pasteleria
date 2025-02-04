@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Counter, CustomButtom } from '../../components'
+import { Counter, CustomButtonAction } from '../../components'
 import { ShoppingOutlined } from '@ant-design/icons';
 import { formatter } from "../../utils/formatters";
 import { products } from "../../utils/constants/products";
 import { Select } from 'antd';
+import { useBasket } from '../../hooks/useBasket';
+import { useParams } from 'react-router-dom';
 
 const ProductInfo = ({ label, value, condition }) => {
   const textColor = condition === 'Sí' ? 'text-slate-800' : 'text-gray-300';
@@ -17,8 +19,21 @@ const ProductInfo = ({ label, value, condition }) => {
 };
 
 const ProductDetail = () => {
-  const [productDetail, setProductDetail] = useState(products[9])
+  const { id } = useParams();
+  const {open, dispatch } = useBasket();
+  
   const [counter, setCounter] = useState(1);
+  const productDetail = products.find((item) => item.id === id) || {};
+
+  const handleAddToCart = (item) => {
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        ...item,
+        count: counter
+      }
+    });
+  };
 
   const porcionesArray = productDetail.porciones.map(porcion => ({
     value: porcion,
@@ -29,6 +44,12 @@ const ProductDetail = () => {
     console.log(`selected ${value}`);
   };
 
+  const handleAddBasket = () => {
+    open("basketOpen")
+    setCounter(1)
+    handleAddToCart(productDetail)
+  }
+ 
   return (
     <>
       <header className="grid grid-cols-9 gap-4">
@@ -79,6 +100,7 @@ const ProductDetail = () => {
               <Counter
                 counter={counter}
                 setCounter={setCounter}
+                disabled={counter <= 1}
               />
             </div>
           </div>
@@ -95,9 +117,9 @@ const ProductDetail = () => {
             <div className="absolute h-[55vh] inset-0 bg-gradient-to-br from-teal-800/100 via-black/20 to-teal-700/30 rounded-4xl z-2"></div>
 
             <div className="bg-[#F5F5F5] w-[90px] h-[90px] absolute -right-1 -bottom-1 z-4 justify-center rounded-tl-4xl">
-              <CustomButtom
+              <CustomButtonAction
                 color="default"
-                href=""
+                onClick={handleAddBasket}
                 shape="circle"
                 size='large'
                 icon={<ShoppingOutlined className="!text-[32px]" />}
