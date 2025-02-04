@@ -35,6 +35,29 @@ body {
   .ant-form-item-explain {
     @apply !text-[12px] mb-3;
   }
+
+  /* Contenedor del Select */
+  .ant-select-selector {
+    @apply !h-[42px] !border-gray-400 !rounded-[14px] !px-4 flex items-center;
+  }
+
+  /* Flecha del Select */
+  .ant-select-arrow {
+    @apply !flex !items-center !justify-center !text-gray-600 !right-4;
+  }
+
+  /* Dropdown y opciones */
+  .ant-select-dropdown {
+    @apply !rounded-[14px] !shadow-lg !bg-white;
+  }
+
+  .ant-select-item {
+    @apply !text-gray-700 hover:!bg-gray-100 hover:!text-black;
+  }
+
+  .ant-select-item-option-selected {
+    @apply !bg-gray-200 !text-black;
+  }
 }
 
 @layer layout {
