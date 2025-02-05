@@ -16,7 +16,7 @@ const LoginModal = ({ isOpen, toggle }) => {
    // Limpiar el formulario al cerrar el modal
    const handleClose = () => {
     form.resetFields(); 
-    toggle(); 
+    toggle()
   };
 
   return (
@@ -30,7 +30,7 @@ const LoginModal = ({ isOpen, toggle }) => {
       <h3 className='text-[16px] font-light text-stone-800 mb-5'>Por favor, ingresa tu correo y contraseña para continuar.</h3>
 
       <Form
-        name="Login"
+        name="LoginForm"
         form={form} 
         layout="vertical"
         initialValues={{
