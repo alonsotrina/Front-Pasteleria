@@ -3,3 +3,4 @@ export { default as ModalComponent } from './ModalComponent';
 export { default as CustomButtom } from './CustomButton';
 export { default as CardProduct } from './CardProduct';
 export { default as CustomButtonAction } from './CustomButtonAction'
+export { default as CustomInput } from './CustomInput'

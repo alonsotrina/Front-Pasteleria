@@ -16,7 +16,7 @@ const MainRoutes = () => {
            
 
             <Route element={<PageLayout />}>
-                {/* <Route path="/products" element={<Products />} /> */}
+                <Route path="/products" element={<Products />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/us" element={<Us />} />
                 <Route path="/product-detail/:id" element={<ProductDetail />} />

@@ -70,7 +70,13 @@ const PageLayout = () => {
     <>
       <Layout>
         <Header className='justify-between !bg-transparent border-b'>
-          <h1 className='text-2xl text-gray-700 font-semibold basis-1/3'>La Berlin</h1>
+        <Link to="/"
+              className='text-xl !text-gray-700 font-normal basis-1/3'
+            >
+              DOLCE VITA
+            </Link>
+
+          {/* <h1 className='text-2xl text-gray-700 font-semibold basis-1/3'>La Berlin</h1> */}
 
           <div className='flex justify-end items-center'>
             {/* <Menu
@@ -94,6 +100,23 @@ const PageLayout = () => {
             >
               Nosotros
             </Link>
+
+            <div className="h-5 border-[0.5px] !text-stone-800 mx-4"></div>
+
+            <Link to="/register"
+              className='!text-stone-800 text-sm'
+            >
+              registarte
+            </Link>
+
+            <div className="h-5 border-[0.5px] !text-stone-800 mx-4"></div>
+
+            <Link to="/profile"
+              className='!text-stone-800 text-sm'
+            >
+              rperfil
+            </Link>
+
 
             <div className="h-5 border-[0.5px] !text-stone-800 mx-4"></div>
 
