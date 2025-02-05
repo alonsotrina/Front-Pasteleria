@@ -1,10 +1,13 @@
 import { useContext } from 'react';
 import { BasketContext } from '../context/BasketContext';
 
-function useBasket() {
-  const { basket } = useContext(BasketContext) 
+export const useBasket = () => {
+  const { cart, dispatch, state, open} = useContext(BasketContext) 
   
-  return { basket };
+  return { 
+    cart,
+    dispatch,
+    state, 
+    open
+  };
 }
-
-export default useBasket;

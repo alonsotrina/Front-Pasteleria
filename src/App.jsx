@@ -1,12 +1,15 @@
 import React from 'react';
 import MainRoutes from './router/MainRoutes';
+import { Basket } from './pages/Index';
 
 const App = () => {
   return (
 
-    <div className="min-h-screen bg-red-500">
+    <>
       <MainRoutes />
-    </div>
+      {/* Componets Drawer Basket */}
+      <Basket />
+    </>
   )
 }
 
