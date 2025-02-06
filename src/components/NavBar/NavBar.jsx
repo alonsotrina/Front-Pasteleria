@@ -6,7 +6,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useBasket } from '../../hooks/useBasket';
 
 const NavBar = ({ className }) => {
-    const { openModal, session } = useAuth()
+    const { openModal, session, logout } = useAuth()
     const { open } = useBasket()
     const navigate = useNavigate();
     const item = [
@@ -50,7 +50,7 @@ const NavBar = ({ className }) => {
             key: '6',
             label: 'Cerrar sesión',
             path: '',
-            onClick: () => navigate('/profile'),
+            onClick: () => logout(),
             extra: '',
         },
     ];
