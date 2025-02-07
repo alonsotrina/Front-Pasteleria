@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { Navigate, Outlet } from 'react-router-dom';
 
-export const AuthGuard = ({ children, isAllow, redirectTo = '/login' }) => {
+export const AuthGuard = ({ children, isAllow, redirectTo = '/' }) => {
 	const { isLoading } = useAuth();
 
 	if (isLoading) {

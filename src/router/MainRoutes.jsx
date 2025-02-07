@@ -9,24 +9,36 @@ import { ROLES } from '../utils/constants/roles';
 
 const MainRoutes = () => {
     const { session } = useAuth()
-    
+
     return (
         <Routes>
             <Route path="/" index element={<Home />} />
-           
+
 
             <Route element={<PageLayout />}>
                 <Route path="/products" element={<Products />} />
-                <Route path="/register" element={<Register />} />
+                <Route
+                    path="/register"
+                    element={
+                        <AuthGuard
+                            redirectTo="/"
+                            isAllow={!session.token}
+                        >
+                            <Register />
+                        </AuthGuard>
+                    }
+                />
                 <Route path="/us" element={<Us />} />
                 <Route path="/product-detail/:id" element={<ProductDetail />} />
                 <Route
                     path="/profile"
                     element={
                         <AuthGuard
-                            redirectTo="/login"
-                            isAllow={session?.token}
-                        />
+                            redirectTo="/"
+                            isAllow={!!session?.token}
+                        >
+                            <Profile />
+                        </AuthGuard>
                     }
                 />
             </Route>
