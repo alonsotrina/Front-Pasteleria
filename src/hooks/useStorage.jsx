@@ -22,9 +22,15 @@ export const useStorage = () => {
 		}
 	}, [encrypted]);
 
+
+	const handleRemoveStorageSession = () => {
+		localStorage.removeItem('USER_SESSION');
+	};
+
 	return {
 		handleSetStorageSession,
 		handleGetStorageSession,
 		decrypted,
+		handleRemoveStorageSession
 	};
 };

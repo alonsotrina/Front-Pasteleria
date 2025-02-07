@@ -1,6 +1,6 @@
 import React from 'react'
 import headerImage from "../../assets/header.jpg";
-import { CardProduct, CaregoryCard, CustomButtom, Footer, HeaderHome } from '../../components';
+import { CardProduct, CaregoryCard, CustomButtom, Footer, HeaderHome, NavBar } from '../../components';
 import { categories } from "../../utils/constants/categories";
 import { products } from "../../utils/constants/products";
 
@@ -8,9 +8,8 @@ import { products } from "../../utils/constants/products";
 const Home = () => {
   return (
     <>
-      <div className="container-custom h-[60px] justify-between">
-        <h1>Menú</h1>
-        <h2>item</h2>
+      <div className="bg-white mb-10">
+        <NavBar className="container-custom py-5 px-5" />
       </div>
 
       <HeaderHome

@@ -22,7 +22,6 @@ const CustomButton = ({
             htmlType={htmlType}
             shape={shape}
             icon={icon}
-            // onClick=""
         >
             {name}
         </Button>
