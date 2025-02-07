@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { LoginContext } from '../context/LoginContext';
 
 export const useAuth = () => {
-  const { state, openModal, session, isLoading, handleSession, logout } = useContext(LoginContext) 
+  const { state, openModal, session, isLoading, handleSession, handleRegister, logout, perfil, handleProfile} = useContext(LoginContext) 
 
   return { 
     state, 
@@ -10,6 +10,9 @@ export const useAuth = () => {
     session, 
     isLoading, 
     handleSession,
+    handleRegister,
+    perfil, 
+    handleProfile,
     logout
   };
 }

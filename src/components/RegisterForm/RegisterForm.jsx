@@ -1,171 +1,100 @@
-import React from "react";
-import { ERROR_MESSAGES } from "../../utils/constants/messages";
-import { Input, Button, Form, Select } from "antd";
-import { CustomInput } from "../ui";
+import React, { useEffect, useState } from "react";
+import { Button, Form } from "antd";
+import { CustomInput, CustomInputSelect } from "../ui";
+import { useAuth } from "../../hooks/useAuth";
+import { formFields, formLocation } from "../../utils/constants/formFields";
 
 const RegisterForm = () => {
   const [form] = Form.useForm();
+  const {session, handleRegister, perfil} = useAuth();
+  const [region, setRegion] = useState("");
 
-  const onFinish = (values) => {
-    console.log("values:", values);
+  useEffect(() => {
+    if (session.token) {
+      form.setFieldsValue(perfil);
+    }
+  }, [perfil, form]);
+
+  // limpiar el form cuando el usaurio se registra
+  useEffect(() => {
+    if (session.msg === "Usuario registrado con exito.") {
+      form.resetFields();
+    }
+  }, [session.msg, form]);
+  
+  useEffect(() => {
+    if (session.token && perfil) {
+      setRegion(perfil.region);
+    }
+  }, [session.token, perfil]);
+  
+  const handleRegionChange = (value) => {
+    setRegion(value);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+  // Función submit registro usuario
+  const onFinish = async (values) => {
+    if(session.token){
+      console.log('enviando otra data')
+    } else {
+      await handleRegister(values);
+    }
   };
-
+  
   return (
     <>
       <Form
         name="registerForm"
         form={form}
         layout="vertical"
-        initialValues={{
-          remember: true,
-        }}
+        initialValues={perfil}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
         size="large"
         className="grid grid-cols-3 gap-2"
       >
-        <CustomInput
-          label="Nombre"
-          name="nombre"
-          rules={[
-            {
-              required: true,
-              message: `${ERROR_MESSAGES.REQUIRED}`,
-            },
-          ]}
-          placeholder="Ingresa un nombre"
-          className="custom-class"
-          inputClassName="custom-input-class"
-        />
-
-        <CustomInput
-          label="Apellidos"
-          name="apellidos"
-          rules={[
-            {
-              required: true,
-              message: `${ERROR_MESSAGES.REQUIRED}`,
-            },
-          ]}
-          placeholder="Ingresa tus apellidos"
-          className="custom-class"
-          inputClassName="custom-input-class"
-        />
-
-        <CustomInput
-          label="Teléfono"
-          name="telefono"
-          rules={[
-            {
-              required: true,
-              message: `${ERROR_MESSAGES.REQUIRED}`,
-            },
-          ]}
-          placeholder="Ingresa tu telefono"
-          className="custom-class"
-          inputClassName="custom-input-class"
-        />
-
-        <Form.Item 
-			label="región"
-			 className="custom-class"
-          	name="region"
-			  rules={[
-				{
-				  required: true,
-				  message: `${ERROR_MESSAGES.REQUIRED}`,
-				},
-			  ]}
-		>
-          <Select placeholder='Seleciona una opción' className="custom-input-class">
-            <Select.Option value="demo">Demo</Select.Option>
-          </Select>
-        </Form.Item>
-
-		<Form.Item 
-			label="Comuna"
-          	name="comuna"
-			 className="custom-class"
-			  rules={[
-				{
-				  required: true,
-				  message: `${ERROR_MESSAGES.REQUIRED}`,
-				},
-			  ]}
-		>
-          <Select placeholder='Seleciona una opción' className="custom-input-class">
-            <Select.Option value="demo">comuna</Select.Option>
-          </Select>
-        </Form.Item>
-
-
-		<CustomInput
-          label="Dirección"
-          name="direccion"
-          rules={[
-            {
-              required: true,
-              message: `${ERROR_MESSAGES.REQUIRED}`,
-            },
-          ]}
-          placeholder="Ingresa tu dirección"
-          className="custom-class"
-          inputClassName="custom-input-class"
-        />
-
-		<CustomInput
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: `${ERROR_MESSAGES.REQUIRED}`,
-            },
-          ]}
-          placeholder="Ingresa tu email"			
-        //   className="custom-class"
-        //   inputClassName="custom-input-class"
-        />
-
-        <Form.Item
-          size="large"
-          label="Contraseña"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: `${ERROR_MESSAGES.REQUIRED}`,
-            },
-          ]}
-		className="!mb-0"
-        >
-          <Input.Password
-            placeholder="Ingresa tu contraseña"
-            className="input-field custom-class"
+        {formFields.slice(0, 3).map((item, index) => (
+          <CustomInput
+            key={index}
+            type={item.type}
+            label={item.label}
+            name={item.name}
+            rules={item.rules}
+            placeholder={item.placeholder}
+            disabled={item.disabled}
           />
-        </Form.Item>
+        ))}
 
-		<Form.Item
-          size="large"
-          label="Repetir contaseña"
-          name="passwordRepeat"
-          rules={[
-            {
-              required: true,
-              message: `${ERROR_MESSAGES.REQUIRED}`,
-            },
-          ]}
-        >
-          <Input.Password
-            placeholder="Repite tu contraseña"
-            className="input-field"
+        {formLocation.map((item, index) => (
+          <CustomInputSelect
+            key={index}
+            label={item.label}
+            name={item.name}
+            rules={item.rules}
+            placeholder={item.placeholder}
+            options={item.options}
+            disabled={ session.token ? false : (item.name === "comuna" ? !region : item.disabled) }
+            onChange={handleRegionChange}
           />
-        </Form.Item>
+        ))}
+
+        {formFields.slice(3, 7).map((item, index) => (
+          <CustomInput
+            key={index}
+            type={item.type}
+            label={item.label}
+            name={item.name}
+            rules={item.rules}
+            placeholder={item.placeholder}
+            disabled={
+              item.name === "direccion" 
+                ? !region 
+                : item.name === "email" 
+                  ? !!session.token 
+                  : item.disabled
+            }
+          />
+        ))}
 
         <Form.Item label={null}>
           <Button
@@ -175,7 +104,7 @@ const RegisterForm = () => {
             block
             className="mt-2 !rounded-[14px]"
           >
-            Ingresar
+            {session.token ? 'Editar': 'Ingresar'}
           </Button>
         </Form.Item>
       </Form>
