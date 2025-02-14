@@ -20,6 +20,7 @@ const initialFilter = {
 const ProductProvider = ({ children }) => {
     const { request, loading, error  } = useHttp()
     const [productsList, setProductsList] = useState(initialState)
+    const [productDetail, setProductDetail] = useState({})
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState("asc");
     const [filters, setFilters] = useState(initialFilter);
@@ -66,6 +67,18 @@ const ProductProvider = ({ children }) => {
         }
     };
 
+     // Mostrar productos según su ID
+    const fetchAllProductsDetail = async (id) => {
+        try {
+            const data = await request(`${ENDPOINT.products}/${id}`, "GET");
+            console.log('product detalle ', data.data)
+            setProductDetail(data.data)
+
+        } catch (err) {
+            console.error("Error fetching Productos:", err);
+        }
+    };
+
     useEffect(() => {
         fetchAllProducts();
     }, [currentPage, sortOrder]);
@@ -89,7 +102,7 @@ const ProductProvider = ({ children }) => {
     };
 
     return (
-        <ProductContext.Provider value={{ productsList, loading, error, currentPage, setCurrentPage, handleSortChange, handleFilterChange }}>
+        <ProductContext.Provider value={{ productsList, loading, error, currentPage, productDetail, fetchAllProductsDetail, setCurrentPage, handleSortChange, handleFilterChange }}>
             {children}
         </ProductContext.Provider>
     )

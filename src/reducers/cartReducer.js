@@ -1,5 +1,14 @@
 export const cartReducer = (state, action) => {
     switch (action.type) {
+        case "SET_CART":
+            // Establece el carrito desde el localStorage
+            return {
+                ...state,
+                items: action.payload.items || [],
+                total: action.payload.total || 0,
+                totalItem: action.payload.totalItem || 0
+            };
+
         case "ADD_TO_CART":
             // Método para  verificar si el ID existe en el state 'cart'
             const exists = state.items.some(cartItem => cartItem.id === action.payload.id);
@@ -18,7 +27,7 @@ export const cartReducer = (state, action) => {
                 // Si no se agregra un nuevo producto a cart
                 [...state.items, { ...action.payload, count: action.payload.count || {} }];
 
-            const updatedTotal = updatedItems.reduce((acc, item) => acc + item.price * item.count, 0);
+            const updatedTotal = updatedItems.reduce((acc, item) => acc + item.precio * item.count, 0);
             const updatedTotalItem = updatedItems.reduce((acc, item) => acc + item.count, 0);
 
             return {
@@ -33,7 +42,7 @@ export const cartReducer = (state, action) => {
             const removeItems = state.items.filter(cartItem => cartItem.id !== action.payload.id);
 
             // Recalcula el total y totalItem
-            const removeTotal = removeItems.reduce((acc, item) => acc + item.price * item.count, 0);
+            const removeTotal = removeItems.reduce((acc, item) => acc + item.precio * item.count, 0);
             const revomeTotalItem = removeItems.reduce((acc, item) => acc + item.count, 0);
 
             return {
@@ -48,7 +57,7 @@ export const cartReducer = (state, action) => {
                 item.id === action.payload.id ? { ...item, count: item.count + 1 } : item
             );
 
-            const increasedTotal = increasedItems.reduce((acc, item) => acc + item.price * item.count, 0);
+            const increasedTotal = increasedItems.reduce((acc, item) => acc + item.precio * item.count, 0);
             const increasedTotalItem = increasedItems.reduce((acc, item) => acc + item.count, 0);
 
             return {
@@ -65,7 +74,7 @@ export const cartReducer = (state, action) => {
 
             const filteredItems = decreasedItems.filter(item => item.count > 0);
 
-            const decreasedTotal = filteredItems.reduce((acc, item) => acc + item.price * item.count, 0);
+            const decreasedTotal = filteredItems.reduce((acc, item) => acc + item.precio * item.count, 0);
             const decreasedTotalItem = filteredItems.reduce((acc, item) => acc + item.count, 0);
 
             return {

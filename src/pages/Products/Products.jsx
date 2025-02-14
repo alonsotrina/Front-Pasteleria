@@ -3,9 +3,11 @@ import { CardProduct, FiltersProducts, Pagination } from '../../components';
 import { categoryProducts } from "../../utils/constants/products";
 import { useProduct } from '../../context/ProductContext';
 import ProductImage from "../../assets/products.jpg";
+import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
   const { productsList, loading, error, currentPage, setCurrentPage, handleSortChange, handleFilterChange } = useProduct()
+  const navigate = useNavigate();
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -45,7 +47,7 @@ const Products = () => {
                 key={item.id}
                 name={item.nombre_producto}
                 src={ProductImage}
-                href={`/product-detail/${item.id}`}
+                href={() => navigate(`/product-detail/${item.id}`)}
                 category={item.nombre_categoria}
                 price={item.precio}
               />
