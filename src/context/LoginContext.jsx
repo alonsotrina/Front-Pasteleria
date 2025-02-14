@@ -1,11 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useStorage } from '../hooks/useStorage';
+import { ENDPOINT } from '../config/endpoints'
 import useIsOpen from "../hooks/useIsOpen";
 
 export const LoginContext = createContext(null);
-
-const urlBase = "http://localhost:5100/api";
-const initialStateToken = localStorage.getItem("token") || null;
+const initialStateToken = localStorage.getItem("USER_SESSION") || null;
 
 const initialState = {
     id: null,
@@ -24,19 +23,18 @@ const LoginProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     console.log('session',session)
-
+    console.log('perfil',perfil )
+      
     useEffect(() => {
         if (session.token) {
             handleProfile(session.token)
-        } else {
-            handleRemoveStorageSession()
         }
     }, [session.token]);
 
 
     const handleSession = async (email, password) => {
         try {
-            const response = await fetch(`${urlBase}/auth/login`, {
+            const response = await fetch(`${ENDPOINT.login}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -46,8 +44,9 @@ const LoginProvider = ({ children }) => {
 
             if (!response.ok) {
                 const errorData = await response.json();
+                console.log('errorData.error', errorData)
                 setSession({
-                    msg: errorData.error,
+                    msg: errorData.message,
                     showMsg: true
                 })
                 return
@@ -56,7 +55,7 @@ const LoginProvider = ({ children }) => {
             const data = await response.json();
 
             setSession({
-                token: data.token,
+                token: data.data,
                 msg: 'Registro exitoso',
                 showMsg: false
             })
@@ -79,32 +78,38 @@ const LoginProvider = ({ children }) => {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         handleGetStorageSession();
     }, []);
 
     useEffect(() => {
         if (decrypted) {
-            setSession(JSON.parse(decrypted)); 
-        } 
-        
+          try {
+            const parsedSession = JSON.parse(decrypted);
+            setSession(parsedSession);
+          } catch (error) {
+            console.error("Error al parsear la sesión desencriptada:", error);
+          }
+        }
         setIsLoading(false);
-    }, [decrypted]);
+      }, [decrypted]);
 
     const logout = () => {
         setSession(initialState)
         handleRemoveStorageSession()
+        setPerfil(null)
     };
 
     const handleRegister = async (values) => {
-        const { nombre, apellidos, telefono, region, comuna, direccion, email, password } = values 
+        const { nombre, apellido, telefono, comuna_id, direccion, email, password, rol = 2  } = values 
 
         try {
-            const response = await fetch(`${urlBase}/auth/register`, {
+            const response = await fetch(`${ENDPOINT.register}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ nombre, apellidos, telefono, region, comuna, direccion, email, password }),
+                body: JSON.stringify({ nombre, apellido, telefono, comuna_id, direccion, email, password, rol_id: 2 }),
             });
 
             if (!response.ok) {
@@ -134,10 +139,9 @@ const LoginProvider = ({ children }) => {
         }
     };
 
-
     const handleProfile = async (token) => {
         try {
-            const response = await fetch(`${urlBase}/auth/me`, {
+            const response = await fetch(`${ENDPOINT.userProfile}`, {
                 method: "GET",
                 headers: {
                     "Content-type": "application/json",
@@ -147,16 +151,18 @@ const LoginProvider = ({ children }) => {
           
             if (!response.ok) {
                 const errorData = await response.json();
+                console.log('errorData', errorData)
                 setSession((prevAuth) => ({
                     ...prevAuth,
-                    msg: errorData.error || "Error desconocido al obtener el perfil",
+                    msg: errorData.description || "Error desconocido al obtener el perfil",
                     showMsg: true,
                 }));
                 return
             }
 
             const data = await response.json();
-            setPerfil(data);
+            setPerfil(data.data);
+            
             return data;
         }
         catch (error) {
@@ -167,9 +173,6 @@ const LoginProvider = ({ children }) => {
             }));
         }
     };
-
-
-
 
     return (
         <LoginContext.Provider value={{ state, openModal, session, isLoading, handleSession, handleRegister, perfil, handleProfile, logout }}>
