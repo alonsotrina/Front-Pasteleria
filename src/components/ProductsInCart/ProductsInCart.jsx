@@ -4,6 +4,7 @@ import { CustomButtonAction } from "../ui";
 import { DeleteOutlined } from "@ant-design/icons";
 import { formatter } from "../../utils/formatters";
 import { useBasket } from "../../hooks/useBasket";
+import ProductImage from "../../assets/products.jpg";
 
 const ProductsInCart = () => {
     const { cart, dispatch } = useBasket();
@@ -37,22 +38,27 @@ const ProductsInCart = () => {
                     <li className="flex py-5" key={item.id}>
                         <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
                             <img
-                                src={item.src}
-                                alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
+                                src={ProductImage}
+                                alt="img"
                                 className="size-full object-cover"
                             />
                         </div>
 
                         <div className="ml-4 flex flex-1 flex-col">
                             <div>
-                                <p className="text-xs text-gray-500">{item.category}</p>
+                                <p className="text-xs text-gray-500">{item.nombre_categoria}</p>
                                 <div className="justify-between text-base font-medium">
-                                    <h3 className="text-sm text-slate-800">{item.name}</h3>
+                                    <h3 className="text-sm text-slate-800">{item.nombre_producto}</h3>
                                     <p className="text-sm text-slate-700">
-                                        {formatter.format(item.count * item.price)}
+                                        {formatter.format(item.count * item.precio)}
                                     </p>
                                 </div>
+
+                                <p className="text-xs text-gray-500">Porción {item.nombre_porcion}</p>
+                                <p className="text-xs text-gray-500">Azucar {item.azucar ===  true ? 'Sí' : 'No'}   -   Gluten {item.gluten ===  true ? 'Sí' : 'No'}   -   Lactosa {item.lactosa ===  true ? 'Sí' : 'No'} </p>
                             </div>
+
+
                             <div className="flex flex-1 items-end justify-between text-sm">
                                 <Counter
                                     counter={item.count}

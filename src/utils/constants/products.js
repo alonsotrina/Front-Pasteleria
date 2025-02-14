@@ -6,6 +6,7 @@ export const products = [
     name: 'Tarta de Chocolate Supremo', 
     price: 10999, 
     category: 'Sin gluten', 
+    category_id: 1,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -19,6 +20,7 @@ export const products = [
     name: 'Pie de Limón Cremoso', 
     price: 12999, 
     category: 'Pie', 
+    category_id: 2,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -32,6 +34,7 @@ export const products = [
     name: 'Kuchen de Frambuesa Artesanal', 
     price: 13999, 
     category: 'Kuchen', 
+    category_id: 4,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -45,6 +48,7 @@ export const products = [
     name: 'Torta Tres Leches', 
     price: 14999, 
     category: 'Tortas', 
+    category_id: 3,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -57,7 +61,8 @@ export const products = [
     id: '5', 
     name: 'Brownie Sin Gluten', 
     price: 8999, 
-    category: 'Sin gluten', 
+    category: 'Sin gluten',
+    category_id: 1,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -71,6 +76,7 @@ export const products = [
     name: 'Pie de Manzana Clásico', 
     price: 11999, 
     category: 'Pie', 
+    category_id: 2,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -83,7 +89,8 @@ export const products = [
     id: '7', 
     name: 'Kuchen de Nuez y Caramelo', 
     price: 15999, 
-    category: 'Kuchen', 
+    category: 'Kuchen',
+    category_id: 4,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -97,6 +104,7 @@ export const products = [
     name: 'Torta de Zanahoria Esponjosa', 
     price: 13999, 
     category: 'Tortas', 
+    category_id: 3,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -109,7 +117,8 @@ export const products = [
     id: '9', 
     name: 'Galletas de Avena Sin Gluten', 
     price: 7999, 
-    category: 'Sin gluten', 
+    category: 'Sin gluten',
+    category_id: 1,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "Sí",
@@ -123,6 +132,7 @@ export const products = [
     name: 'Pie de Queso Frutal', 
     price: 13499, 
     category: 'Pie', 
+    category_id: 2,
     href: '/product-detail', 
     src: ProductImage,
     azucar: "No",
@@ -133,3 +143,22 @@ export const products = [
   }
 ];
 
+
+export const categoryProducts = [
+  { 
+    category: 'Sin gluten', 
+    id: 1,
+  },
+  { 
+    category: 'Pie', 
+    id: 2,
+  },
+  { 
+    category: 'Kuchen', 
+    id: 4,
+  },
+  { 
+    category: 'Tortas', 
+    id: 3,
+  }
+];

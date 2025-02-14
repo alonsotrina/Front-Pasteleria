@@ -20,7 +20,7 @@ export const formFields = [
   },
   {
     label: "Apellidos",
-    name: "apellidos",
+    name: "apellido",
     type: "text",
     rules: [
       { required: true, message: ERROR_MESSAGES.REQUIRED },

@@ -35,7 +35,7 @@ const MainRoutes = () => {
                     element={
                         <AuthGuard
                             redirectTo="/"
-                            isAllow={!!session?.token}
+                            isAllow={session?.token}
                         >
                             <Profile />
                         </AuthGuard>

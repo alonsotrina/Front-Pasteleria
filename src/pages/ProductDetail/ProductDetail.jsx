@@ -1,31 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Counter, CustomButtonAction } from '../../components'
 import { ShoppingOutlined } from '@ant-design/icons';
 import { formatter } from "../../utils/formatters";
-import { products } from "../../utils/constants/products";
-import { Select } from 'antd';
 import { useBasket } from '../../hooks/useBasket';
 import { useParams } from 'react-router-dom';
+import { useProduct } from '../../context/ProductContext';
+import ProductImage from "../../assets/products.jpg";
 
-const ProductInfo = ({ label, value, condition }) => {
-  const textColor = condition === 'Sí' ? 'text-slate-800' : 'text-gray-300';
+const ProductInfo = ({ label, value }) => {
+  const displayValue = value ? 'Sí' : 'No';
 
   return (
     <div className='justify-center flex-col'>
-      <h3 className={`text-base ${textColor}`}>{label}</h3>
-      <h4 className={`text-2xl font-light ${textColor}`}>{value}</h4>
+      <h3 className={`text-base text-gray-500`}>{label}</h3>
+      <h4 className={`text-2xl font-light`}>{displayValue}</h4>
     </div>
   );
 };
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { productDetail, fetchAllProductsDetail} = useProduct()
   const {open, dispatch } = useBasket();
+
+  useEffect(()=>{
+    fetchAllProductsDetail(id)
+  },[id])
   
   const [counter, setCounter] = useState(1);
-  const productDetail = products.find((item) => item.id === id) || {};
 
   const handleAddToCart = (item) => {
+
+    console.log('item cart', item)
     dispatch({
       type: "ADD_TO_CART",
       payload: {
@@ -35,14 +41,14 @@ const ProductDetail = () => {
     });
   };
 
-  const porcionesArray = productDetail.porciones.map(porcion => ({
-    value: porcion,
-    label: `${porcion}`
-  }));
+  // const porcionesArray = productDetail.porciones.map(porcion => ({
+  //   value: porcion,
+  //   label: `${porcion}`
+  // }));
 
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-  };
+  // const handleChange = (value) => {
+  //   console.log(`selected ${value}`);
+  // };
 
   const handleAddBasket = () => {
     open("basketOpen")
@@ -54,46 +60,44 @@ const ProductDetail = () => {
     <>
       <header className="grid grid-cols-9 gap-4">
         <div className="relative col-span-6 bg-white rounded-4xl p-12 px-6">
-          <h2 className='text-base text-slate-600 mb-2'>{productDetail.category} - sku:00{productDetail.id}</h2>
-          <h3 className='text-5xl font-light text-slate-800'>{productDetail.name}</h3>
-          <h3 className="text-4xl font-light text-slate-600 my-4">$ {formatter.format(productDetail.price)}</h3>
+          <h2 className='text-base text-slate-600 mb-2'>{productDetail.nombre_categoria} - sku:00{productDetail.id}</h2>
+          <h3 className='text-5xl font-light text-slate-800'>{productDetail.nombre_producto}</h3>
+
+          <div className="justify-between">
+            <h3 className="text-xl font-light text-slate-600 my-4">stock {productDetail.stock}</h3>
+            <h3 className="text-4xl font-light text-red-500 my-4">${formatter.format(productDetail.precio)}</h3>
+          </div>
 
           <div className='grid grid-cols-3 my-9'>
             <ProductInfo
               label="Azúcar"
               value={productDetail.azucar}
-              condition={productDetail.azucar}
             />
 
             <ProductInfo
               label="Gluten"
               value={productDetail.gluten}
-              condition={productDetail.gluten}
             />
 
             <ProductInfo
               label="Lactosa"
               value={productDetail.lactosa}
-              condition={productDetail.lactosa}
             />
           </div>
 
-          <p className='text-base/7 font-light pt-8'>{productDetail.descripcion}</p>
-
+          {/* <p className='text-base/7 font-light pt-8'>{productDetail.descripcion}</p> */}
           <div className='grid grid-cols-2 mt-9'>
             <div className='justify-center flex-col'>
-              <label htmlFor="porciones" className="block text-base font-medium text-gray-700 mb-2">
-                Porción
-              </label>
+              <h4 className="text-2xl font-light text-slate-600 my-4">Porción: {productDetail.nombre_porcion}</h4>
 
-              <Select
+              {/* <Select
                 id="porciones"
                 onChange={handleChange}
                 placeholder="Seleccionar"
                 className="!input-field w-40"
                 size="large"
                 options={porcionesArray}
-              />
+              /> */}
             </div>
 
             <div className='justify-center flex-col !border-l-[0.5px]'>
@@ -110,7 +114,7 @@ const ProductDetail = () => {
           <div className='relative rounded-2xl'>
             <img
               alt="example"
-              src={productDetail.src}
+              src={ProductImage}
               className='w-full h-[55vh] object-cover object-left rounded-4xl'
             />
 
