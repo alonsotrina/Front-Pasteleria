@@ -82,9 +82,9 @@ const ProductsInCart = () => {
                 ))}
             </ul>
 
-            <h3 className="text-base text-slate-800 mt-8">Otros cargos</h3>
+            {/* <h3 className="text-base text-slate-800 mt-8">Otros cargos</h3> */}
 
-            <ul role="list" className="my-3 divide-y divide-gray-200">
+            {/* <ul role="list" className="my-3 divide-y divide-gray-200">
                 <li className="text-sm text-slate-600 justify-between py-3">
                     <span>cargos por servicio</span>
                     <span>${formatter.format(0)}</span>
@@ -94,7 +94,7 @@ const ProductsInCart = () => {
                     <span>cargos por servicio</span>
                     <span>${formatter.format(0)}</span>
                 </li>
-            </ul>
+            </ul> */}
         </>
     );
 };

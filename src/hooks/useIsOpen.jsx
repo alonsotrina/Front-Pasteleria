@@ -4,6 +4,7 @@ const useIsOpen = () => {
   const [state, setState] = useState({
     modalOpen: false,
     basketOpen: false,
+    loading: false
   });
 
   const toggle = (key) => {

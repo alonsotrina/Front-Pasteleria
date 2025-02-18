@@ -22,7 +22,7 @@ const LoginProvider = ({ children }) => {
     const [perfil, setPerfil] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log('session',session)
+    console.log('session.comtext',session)
     console.log('perfil',perfil )
       
     useEffect(() => {

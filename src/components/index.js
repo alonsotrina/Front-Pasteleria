@@ -10,4 +10,8 @@ export { default as ProductsInCart } from './ProductsInCart/ProductsInCart';
 export { default as NavBar } from './NavBar/NavBar';
 export { default as FiltersProducts } from './FiltersProducts/FiltersProducts';
 export { default as Pagination } from './Pagination/Pagination';
+export { default as Loading } from './Loading/Loading';
+export { default as DropdownAuth } from './DropdownAuth/DropdownAuth';
+export { default as DetailOrdenModal } from './DetailOrdenModal/DetailOrdenModal';
+
 

@@ -1,59 +1,13 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { CustomDropdown } from '../ui'
+import { Link } from 'react-router-dom';
 import { ShoppingOutlined, HeartOutlined } from '@ant-design/icons';
 import { useAuth } from '../../hooks/useAuth';
 import { useBasket } from '../../hooks/useBasket';
+import { DropdownAuth } from '../index';
 
 const NavBar = ({ className }) => {
-    const { openModal, session, logout } = useAuth()
+    const { session } = useAuth()
     const { open } = useBasket()
-    const navigate = useNavigate();
-    const item = [
-        {
-            key: '1',
-            label: `Bienvenido Dolce Vita`,
-            disabled: true,
-        },
-        {
-            type: 'divider',
-        },
-        !session?.token && {
-            key: '2',
-            label: 'Iniciar sesión',
-            path: '',
-            onClick: () => openModal('modalOpen'),
-            extra: ' ',
-        },
-        !session?.token && {
-            key: '3',
-            label: 'Registrate',
-            path: '/register',
-            onClick: () => navigate('/register'),
-            extra: '',
-        },
-        session?.token && {
-            key: '4',
-            label: 'Mis compras',
-            path: '/orders',
-            onClick: () => navigate('/register'),
-            extra: '',
-        },
-        session?.token && {
-            key: '5',
-            label: 'Perfil',
-            path: '/profile',
-            onClick: () => navigate('/profile'),
-            extra: '',
-        },
-        session?.token && {
-            key: '6',
-            label: 'Cerrar sesión',
-            path: '',
-            onClick: () => logout(),
-            extra: '',
-        },
-    ];
 
     return (
         <nav className={`justify-between !bg-white w-full ${className}`}>
@@ -73,19 +27,16 @@ const NavBar = ({ className }) => {
 
                 <div className="h-5 border-[0.5px] !text-stone-800 mx-4"></div>
 
-                <Link to="/us"
+                {/* <Link to="/us"
                     className='!text-stone-800 text-sm'
                 >
                     Nosotros
-                </Link>
+                </Link> */}
 
-                <div className="h-5 border-[0.5px] !text-stone-800 mx-4"></div>
+                {/* <div className="h-5 border-[0.5px] !text-stone-800 mx-4"></div> */}
 
-                <CustomDropdown
-                    title="Hola, Iniciar Sesión"
-                    items={item}
-                    className='!text-stone-800 text-sm'
-                />
+                {/* Menú iniciar sesión */}
+                <DropdownAuth />
 
                 <div className="h-5 border-[0.5px] text-stone-800 mx-4"></div>
 
