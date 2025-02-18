@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import { PageLayout, AdminlLayout } from "../layouts/Index";
-import { Home, Register, Us, ProductDetail, Profile, NotFound, Dashboard } from "../pages/Index";
+import { Home, Register, Us, ProductDetail, Profile, NotFound, Dashboard, Orders } from "../pages/Index";
 import { Category, Portions, Users, Products } from "../pages/Index";
 import { useAuth } from '../hooks/useAuth';
 import { AuthGuard } from '../guard/AutGuard';
@@ -38,6 +38,17 @@ const MainRoutes = () => {
                             isAllow={session?.token}
                         >
                             <Profile />
+                        </AuthGuard>
+                    }
+                />
+                 <Route
+                    path="/orders"
+                    element={
+                        <AuthGuard
+                            redirectTo="/"
+                            isAllow={session?.token}
+                        >
+                            <Orders />
                         </AuthGuard>
                     }
                 />
