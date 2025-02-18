@@ -30,8 +30,6 @@ const ProductDetail = () => {
   const [counter, setCounter] = useState(1);
 
   const handleAddToCart = (item) => {
-
-    console.log('item cart', item)
     dispatch({
       type: "ADD_TO_CART",
       payload: {

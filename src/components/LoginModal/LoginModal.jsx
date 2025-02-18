@@ -51,7 +51,6 @@ const LoginModal = ({ isOpen, toggle }) => {
       )}
 
       <Form
-        name="LoginForm"
         form={form}
         layout="vertical"
         initialValues={{
