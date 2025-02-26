@@ -6,7 +6,7 @@ import ProductImage from "../../assets/products.jpg";
 import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
-  const { productsList, loading, error, currentPage, setCurrentPage, handleSortChange, handleFilterChange } = useProduct()
+  const { productsList, loading, error, currentPage, setCurrentPage, handleSortChange, handleFilterChange, filters } = useProduct()
   const navigate = useNavigate();
 
   if (loading) {
@@ -16,12 +16,15 @@ const Products = () => {
     return <div className="app-container center">Error: {error}</div>;
   }
 
+  console.log('filters', filters)
+
   return (
     <div className="grid grid-cols-5 gap-4">
       {/* Sidebar de Filtros */}
       <aside className="col-span-1 bg-gray-100 p-4 rounded-md shadow-md">
         <FiltersProducts
           title="Filtros"
+          filtros={filters}
           onChange={handleFilterChange}
           category={categoryProducts}
 
